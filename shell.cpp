@@ -36,7 +36,7 @@ int main( ) {
     // if the last character is '&' or ';', replace it with a space ' '.
     if(fullLine.back() == ('&'|';'))
     {
-      
+      fullLine.back() = ' ';
     }
     
     const char* delimiter = " ";
@@ -44,20 +44,53 @@ int main( ) {
     token[0] = strtok( (char *)fullLine.c_str( ), delimiter); 
     for ( int i = 0; token[i] != NULL && i < 80; i++ )
       token[i + 1] = strtok(NULL, delimiter);
-
+    // Ensure array is NULL-terminated
+    
     // token[0] is a command.
 
-    // check if it's "exit".
-
+    // check if it's "exit" and terminate shell
+    if (strcmp(token[0]), "exit" == 0)
+    {
+      exit(0);
+    }
+    
     // check if it's "fg" in which case wait for the pid on the stack top. then, pop it out.
-	 
-    // fork a child shell                                                 
-
-    // child should replace it with token[0] as possing the entire token.
-
-    // parent should wait for the child if !background.
-
-    // otherwise put the child pid into pid_stack.
+	 if (strcmp(token[0]), "fg" == 0)
+    {
+      waitpid(pid_stack.top(), &status, 0);
+      pid_stack.pop();
+      continue;
+    }
+    
+    // fork a child shell
+    pid = fork();
+    if (pid < 0)
+    {
+      fprintf(stderr, "Fork failed.");
+      exit(-1);
+    }
+    else if (pid == 0)
+    {
+      //printf("This is the child");
+      // child should replace it with token[0] as possing the entire token.
+      execvp(token[0],token);
+    }
+    else
+    {
+      //printf("This is the parent");
+      // parent should wait for the child if !background.
+      if (!background)
+      {
+        waitpid(pid, &status, 0);
+      }
+      else
+      {
+        // otherwise put the child pid into pid_stack.
+        pid_stack.push(pid);
+        background = false;
+        // reset the boolean so execution becomes synchronous
+      }
+    }
   }
   return 0;
 }
