@@ -23,21 +23,45 @@ int main( int argc, char** argv ) {
   }
   else if ( pid == 0 ) {
     // I'm a child
+    // This shell will execute wc
 
-    // create a pipe using fds[0]
-    // fork a grand-child
-    // if I'm a grand-child
-	// create a pipe using fds[1]
-	// fork a great-grand-child
- 	// if I'm a great-grand-child
-             // execute "ps"
-        // else if I'm a grand-child
-             // execute "grep"
-    // else if I'm a child
-       // execute "wc"
+    // point thisstdin to grandchild's stdout
+    if (pipe(fds[0] < 0) {
+      perror( "pipe failed" );
+    }
+    // First fork
+    if ((pid = fork()) < 0) { // error check
+      perror( "fork failed" );
+    }
+    else if (pid == 0) {
+      // I'm a grand-child
+      // This shell will execute grep
+      
+      // Close read-end of parent
+      // Redirect with dup2
+      // Close write-end of child
+    }
+    else { // help
+
+    }
+    // Another fork
+    if (pipe(fds[1] < 0) {
+      perror("pipe failed");
+    }
+    if ((pid = fork()) < 0) { // error check
+      perror(" fork failed");
+    }
+    else if (pid == 0) {
+      // I'm a great-grand-child
+      // this shell will implement ps
+
+      // point this stdout to grandchild's stdin
+    }
+    else { // girl idk
+    }
   }
   else {
-    // I'm a parent
+    // I'm a parent (represents command interpreter)
     wait( NULL );
     cout << "commands completed" << endl;
   }
