@@ -23,41 +23,45 @@ int main( int argc, char** argv ) {
   }
   else if ( pid == 0 ) {
     // I'm a child
-    // This shell will execute wc
+    // This shell will load in wc
 
-    // point thisstdin to grandchild's stdout
     if (pipe(fds[0] < 0) {
       perror( "pipe failed" );
     }
+    //Pipe A now exists
+    // point this stdin to grandchild's stdout
     // First fork
     if ((pid = fork()) < 0) { // error check
       perror( "fork failed" );
     }
     else if (pid == 0) {
+    // Pipe A still exists
       // I'm a grand-child
       // This shell will execute grep
-      
+
+      // Another fork
+      if (pipe(fds[1] < 0) {
+        perror("pipe failed");
+      }
+      // Pipe B now exists
+      if ((pid = fork()) < 0) { // error check
+        perror(" fork failed");
+      }
       // Close read-end of parent
       // Redirect with dup2
       // Close write-end of child
-    }
-    else { // help
+      if (pid == 0) {
+        // Pipe B still exists
+        // I'm a great-grand-child
+        // this shell will implement ps
 
+        // point this stdout to grandchild's stdin
+      }
+      else {
+      }
     }
-    // Another fork
-    if (pipe(fds[1] < 0) {
-      perror("pipe failed");
-    }
-    if ((pid = fork()) < 0) { // error check
-      perror(" fork failed");
-    }
-    else if (pid == 0) {
-      // I'm a great-grand-child
-      // this shell will implement ps
-
-      // point this stdout to grandchild's stdin
-    }
-    else { // girl idk
+    else { // child
+      // Pipe B still exists
     }
   }
   else {

@@ -16,7 +16,7 @@ https://web.archive.org/web/20240318155912/https://people.cs.rutgers.edu/~pxk/41
 
 
 > You will have to create as many pipe variables as there are "diversion". then create a list of commands.  
-if you want parent process leave,you would fork a process for each command. otherwise one less.  
+** if you want parent process leave,you would fork a process for each command. otherwise one less.**  
 for the very first command, dup or 'dup2' only for STDOUT.  
 and for the very last command dup or 'dup2' only for STDIN.  
 for the rest, dup or 'dup2' for STDIN and STDOUT both.  
