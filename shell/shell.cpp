@@ -9,7 +9,6 @@
 #include <cstring>                 // strtok
 #include <stack>                   // c++ stack
 
-//testing
 #define MAX_TOKENS 100             // the max # of tokens
 
 using namespace std;
@@ -34,7 +33,7 @@ int main( ) {
       background = true;
     }
     // if the last character is '&' or ';', replace it with a space ' '.
-    if(fullLine.back() == ('&'|';'))
+    if ((fullLine.back() == '&') || (fullLine.back() == ';'))
     {
       fullLine.back() = ' ';
     }
@@ -47,15 +46,14 @@ int main( ) {
     // Ensure array is NULL-terminated
     
     // token[0] is a command.
-
     // check if it's "exit" and terminate shell
-    if (strcmp(token[0]), "exit" == 0)
+    if (strcmp(token[0], "exit") == 0)
     {
       exit(0);
     }
     
     // check if it's "fg" in which case wait for the pid on the stack top. then, pop it out.
-	 if (strcmp(token[0]), "fg" == 0)
+	 if (strcmp(token[0], "fg") == 0)
     {
       waitpid(pid_stack.top(), &status, 0);
       pid_stack.pop();
@@ -71,13 +69,11 @@ int main( ) {
     }
     else if (pid == 0)
     {
-      //printf("This is the child");
       // child should replace it with token[0] as possing the entire token.
       execvp(token[0],token);
     }
     else
     {
-      //printf("This is the parent");
       // parent should wait for the child if !background.
       if (!background)
       {
