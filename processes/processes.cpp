@@ -41,17 +41,44 @@ int main( int argc, char** argv ) {
       }
 
       if (pid == 0) { // Great-grand-child is born, executes 'ps', dies
+        // close every connection to Pipe B
+        close(fds[1][0]);
+        close(fds[1][1]);
+        // purely a consumer that ignores the read-able end of Pipe A
+        close(fds[0][0]);
+        // File Descriptor 'STDOUT' of GGC is redirected to GC's 'STDIN'
+        dup2(fds[0][1], 1);
+        // execute ps
+        execlp("usr/bin/ps", "ps", "-A", NULL);
+
       }
       else { // Grand-child dies
+        // producer-consumer that ignore's write-able end of Pipe A and read-able ends of Pipe B
+        close(fds[0][1]);
+        close(fds[1][0]);
+        // FD 'STDIN' of GC is redirected from GCC 'STDOUT'
+        dup2(fds[0][0],0);
+        // FD 'STDOUT' of GC is redirected to C's 'STDIN'
+        dup2(fds[1][1], 1);
+
         // execute grep
+        execlp("usr/bin/grep", "grep", argv[1], nullptr);
       }
     }
     else { // Child dies
+      // close every connection to Pipe A
+      close(fds[0][0]);
+      close(fds[0][1]);
+      //purely a producer that ignores the read-able end of Pipe A
+      close(fds[1][1]);
+      // FD 'STDIN' of C is redirected from GC's 'STDOUT'
+      dup2(fds[1][0],0);
+
       // execute wc
+      execlp("usr/bin/wc", "wc", "-l", nullptr);
     }
   }
   else { // Parent dies
-    // I'm a parent (represents command interpreter, excutes wait)
     wait( NULL );
     cout << "commands completed" << endl;
   }

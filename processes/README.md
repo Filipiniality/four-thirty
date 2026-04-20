@@ -1,8 +1,5 @@
-* https://man7.org/linux/man-pages/man2/fork.2.html
-* https://man7.org/linux/man-pages/man3/exec.3.html
-* https://man7.org/linux/man-pages/man2/pipe.2.html
-* https://man7.org/linux/man-pages/man2/dup.2.html
 * https://www.rozmichelle.com/pipes-forks-dups/
+* https://cs61.seas.harvard.edu/site/2018/Shell2/
 
 * fork() {returns pid_t}
 * execlp(path, executable, additional arguments) {returns integer to respresent status}
