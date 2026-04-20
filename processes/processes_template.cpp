@@ -27,9 +27,9 @@ int main( int argc, char** argv ) {
     // create a pipe using fds[0]
     // fork a grand-child
     // if I'm a grand-child
-	// create a pipe using fds[1]
-	// fork a great-grand-child
- 	// if I'm a great-grand-child
+	      // create a pipe using fds[1]
+	      // fork a great-grand-child
+ 	      // if I'm a great-grand-child
              // execute "ps"
         // else if I'm a grand-child
              // execute "grep"

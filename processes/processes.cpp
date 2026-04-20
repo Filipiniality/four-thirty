@@ -21,31 +21,37 @@ int main( int argc, char** argv ) {
   if ( ( pid = fork( ) ) < 0 ) {
     perror( "fork error" );
   }
-  else if ( pid == 0 ) { // Child is born
-
-    if (pipe(fds[0] < 0) {
+  else if ( pid == 0 ) { // Child is born, will execute 'who'
+    // Pipe A
+    if (pipe(fds[0]) < 0) {
       perror( "pipe failed" );
     }
-    if ((pid = fork()) < 0) {
+
+    if (pid = fork() < 0) {
       perror( "fork failed" );
     }
-    else if (pid == 0) { // Grand-child is born
-      if (pipe(fds[1] < 0) {
+    else if (pid == 0) { // Grand-child is born, will execute 'grep'
+      // Pipe B
+      if (pipe(fds[1]) < 0) {
         perror("pipe failed");
       }
-      if ((pid = fork()) < 0) {
+
+      if (pid = fork() < 0) {
         perror(" fork failed");
       }
-      if (pid == 0) { // Great-grand-child is born and dies
+
+      if (pid == 0) { // Great-grand-child is born, executes 'ps', dies
       }
       else { // Grand-child dies
+        // execute grep
       }
     }
     else { // Child dies
+      // execute wc
     }
   }
   else { // Parent dies
-    // I'm a parent (represents command interpreter)
+    // I'm a parent (represents command interpreter, excutes wait)
     wait( NULL );
     cout << "commands completed" << endl;
   }
