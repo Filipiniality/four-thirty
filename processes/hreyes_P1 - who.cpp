@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
         dup2(fds[1][1],1);
         close(fds[1][0]);
 
-        execlp("ps", "ps", "-A", NULL);
+        execlp("who", "who", NULL);
 
         // ps is purely a producer and does no reading
         close(fds[1][1]);
