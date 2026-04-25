@@ -11,3 +11,8 @@
 
 (5) Run:
     ./a.out
+
+---
+
+The process is the ADDRESS SPACE and OS RESOURCES
+Threads run in the CONTEXT of the PROCESS
