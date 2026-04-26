@@ -7,46 +7,57 @@
 #include <string.h> // memcpy
 #include <queue>    // queue
 
-#define scheduler_init( ) {			\
+#define scheduler_init( ) {			      \
     if ( setjmp( main_env ) == 0 )		\
-      scheduler( );				\
+      scheduler( );				            \
   }
 
-#define scheduler_start( ) {			\
+#define scheduler_start( ) {			    \
     if ( setjmp( main_env ) == 0 )		\
       longjmp( scheduler_env, 1 );		\
   }
 
-#define capture( ) {							\
+#define capture( ) {							    \
+  /* store context for yield */       \
+  /* get Stack and Base pointers */   \
+  /* size is BP-SP */                 \
+  /* save current thread's SP */      \
+  /* create new heap space for new activation record */ \
+  /* Copy func's Stack to Heap */     \
+  /* TCB goes to thread queue */      \
   }
     
 #define sthread_yield( ) {						\
+  /* thread from capture() relilnquishes CPU */ \
+  /* if alarm = true, timer interrupt occured */ \
+  /* alarm will get turned on later by sig_alarm */ \
+  /*  */
   }
 
-#define sthread_init( ) {					\
+#define sthread_init( ) {					    \
     if ( setjmp( cur_tcb->env ) == 0 ) {			\
-      capture( );						\
+      capture( );						          \
       longjmp( main_env, 1 );					\
-    }								\
+    }								                  \
     memcpy( cur_tcb->sp, cur_tcb->stack, cur_tcb->size );	\
   }
 
 #define sthread_create( function, arguments ) { \
     if ( setjmp( main_env ) == 0 ) {		\
-      func = &function;				\
-      args = arguments;				\
-      thread_created = true;			\
-      cur_tcb = new TCB( );			\
+      func = &function;				        \
+      args = arguments;				        \
+      thread_created = true;			    \
+      cur_tcb = new TCB( );			      \
       longjmp( scheduler_env, 1 );		\
     }						\
   }
 
 #define sthread_exit( ) {			\
     if ( cur_tcb->stack != NULL ) {		\
-      free( cur_tcb->stack );			\
-      cur_tbc->stack = NULL;                    \
-    }                                           \
-    longjmp( scheduler_env, 1 );		\
+      free( cur_tcb->stack );			    \
+      cur_tbc->stack = NULL;          \
+    }                                 \
+    longjmp( scheduler_env, 1 );		  \
   }
 
 using namespace std;
