@@ -27,27 +27,28 @@
   /* save current thread's SP */      \
   cur_tcb->sp = sp;                   \
   /* create new heap space for new activation record */ \
-  /* TODO malloc */                   \
+  cur_tcb->stack = (void*)malloc(cur_tcb->size); \
   /* Copy func's Stack to Heap */     \
-  memcpy( cur_tcb->stack, sp, cur_tcb->size ); \
+  memcpy(cur_tcb->stack, sp, cur_tcb->size); \
   /* TCB goes to thread queue */      \
-  /* TODO thr_queue pushing */ \
+  thr_queue.push(cur_tcb);            \
   }
     
 /* Goal: get current thread to relinquish CPU */
 #define sthread_yield( ) {						            \
   /* if alarm = true, timer interrupt occured */  \
   if (alarmed) {                                  \
-    /* resert. alarm will get turned on later by sig_alarm */ \
+    /* reset. alarm will get turned on later by sig_alarm */ \
     alarmed = false;                              \
     /* memorize context */                        \
-    /* TODO directly all setjmp */                \
-    capture();                                    \
-    /* nonlocal jump thread environment */        \
-    /* TODO longjmp scheduler environment */      \
+    if (setjmp(cur_tcb->env) == 0) {              \
+      capture();                                  \
+      /* nonlocal jump thread environment */      \
+      longjmp(scheduler_env, 1);                  \
     }                                             \
-  /* copy thread stack contents from heap to stack */ \
-  memcpy(cur_tcb->sp, cur_tcb->stack, cur_tcb->size); \
+    /* copy thread stack contents from heap to stack */ \
+    memcpy(cur_tcb->sp, cur_tcb->stack, cur_tcb->size); \
+    }                                             \
   }
 
 #define sthread_init( ) {					    \
@@ -71,7 +72,7 @@
 #define sthread_exit( ) {			        \
     if ( cur_tcb->stack != NULL ) {		\
       free( cur_tcb->stack );			    \
-      cur_tbc->stack = NULL;          \
+      cur_tcb->stack = NULL;          \
     }                                 \
     longjmp( scheduler_env, 1 );		  \
   }
