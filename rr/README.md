@@ -1,13 +1,14 @@
-The process is the ADDRESS SPACE and OS RESOURCES
+**The goal is to understand how to capture and restore the current execution environment using system calls.**
+
+The process is the ADDRESS SPACE and OS RESOURCES  
 Threads run in the CONTEXT of the PROCESS
 
-A process is a container of threads
+A process is a container of threads  
 	It only needs to save Program Counter and other registers
 
 Preemptive- in RR, the scheduler interrupts a job if it is not completed by x quanta
 
 Standard API POSIX threads, or Pthreads
-
 * https://pubs.opengroup.org/onlinepubs/009695399/basedefs/pthread.h.html
 * https://en.cppreference.com/c/program/jmp_buf
 * https://man7.org/linux/man-pages/man3/longjmp.3.html
@@ -16,7 +17,7 @@ Standard API POSIX threads, or Pthreads
 
 ---
 
-Thread needs its own stack
+Thread needs its own stack  
 Think about recursion
 
 You want the contents of stack space to go into heap
@@ -29,31 +30,32 @@ g++ driver.cpp
 
 ---
 
-capturing current status of thread
+capturing current status of thread  
 passing execution to next thread
 
 ---
 
-Already have scheduler implemented
-User-level thread control block is already defined
+Already have scheduler implemented  
+User-level thread control block is already defined  
 create() and exit() implemented
 
 ---
 
-UNNECESSARY:
-Keep track of BP (base pointer)
-    Keep base function @ original thread function
+UNNECESSARY:  
+Keep track of BP (base pointer)  
+Keep base function @ original thread function
 ```
 scheduler_init scheduler_start PROPER scheduler()
->> main_env << 						global variable, visible everywhere (static keyword)
-	SP, BP, PC, 	Check pointer
-and scheduler_env are set to				global
+>> main_env << 					global variable, visible everywhere (static keyword)
+	SP, BP, PC, 				Check pointer
+and scheduler_env are set to			global
 	SP, BP, PC, 
-cur_tcb_env						thread private
+cur_tcb_env					thread private
 	SP, BP, PC, 
 ```
 ---
 
+```
 schedule_init is just a continuation of main()
 
 driver.cpp
@@ -86,21 +88,21 @@ Scheduler_start
 		KICK OUT TCB 1
 	activate timer in 5 seconds
 	longjmp to this thread’s environment
-
+```
 
 ---
 
-capture()
-	captures sp bp stack
-	pushes current tcb into queue
-yield()
-	works only when alarmed
-	correctly uses setjmp/longjmp
+**capture()**  
+	captures sp bp stack  
+	pushes current tcb into queue  
+
+**yield()**  
+	works only when alarmed  
+	correctly uses setjmp/longjmp  
 	retrieves new thread's stack
 
-setjmp =
+setjmp = get info required for longjump
 longjump = CPU's activation record
 
-Report: Including RR context switch snapshots
-
+Report: Including RR context switch snapshots  
 Report: Include illustration of stack layers

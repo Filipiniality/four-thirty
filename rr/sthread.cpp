@@ -17,21 +17,31 @@
       longjmp( scheduler_env, 1 );		\
   }
 
+/* Goal: store context to make sthread_yield possible */
 #define capture( ) {							    \
-  /* store context for yield */       \
   /* get Stack and Base pointers */   \
-  /* size is BP-SP */                 \
+  register void *sp asm ("sp");       \
+  register void* bp asm("bp");        \
+  /* size is BP-SP, cast value */     \
+  cur_tcb->size = (int)((long long int)bp - (long long int)sp);  \
   /* save current thread's SP */      \
+  cur_tcb->sp = sp;                   \
   /* create new heap space for new activation record */ \
+  /* TODO malloc */                   \
   /* Copy func's Stack to Heap */     \
+  memcpy( cur_tcb->stack, sp, cur_tcb->size ); \
   /* TCB goes to thread queue */      \
+  /* TODO thr_queue pushing */ \
   }
     
+/* Goal: get current thread to relinquish CPU */
 #define sthread_yield( ) {						\
-  /* thread from capture() relilnquishes CPU */ \
   /* if alarm = true, timer interrupt occured */ \
   /* alarm will get turned on later by sig_alarm */ \
-  /*  */
+  /* memorize context */              \
+  capture();                          \
+  /* jump to different thread environment */ \
+  /* copy thread stack contents from heap to stack */ /
   }
 
 #define sthread_init( ) {					    \
