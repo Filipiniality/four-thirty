@@ -35,13 +35,19 @@
   }
     
 /* Goal: get current thread to relinquish CPU */
-#define sthread_yield( ) {						\
-  /* if alarm = true, timer interrupt occured */ \
-  /* alarm will get turned on later by sig_alarm */ \
-  /* memorize context */              \
-  capture();                          \
-  /* jump to different thread environment */ \
-  /* copy thread stack contents from heap to stack */ /
+#define sthread_yield( ) {						            \
+  /* if alarm = true, timer interrupt occured */  \
+  if (alarmed) {                                  \
+    /* resert. alarm will get turned on later by sig_alarm */ \
+    alarmed = false;                              \
+    /* memorize context */                        \
+    /* TODO directly all setjmp */                \
+    capture();                                    \
+    /* nonlocal jump thread environment */        \
+    /* TODO longjmp scheduler environment */      \
+    }                                             \
+  /* copy thread stack contents from heap to stack */ \
+  memcpy(cur_tcb->sp, cur_tcb->stack, cur_tcb->size); \
   }
 
 #define sthread_init( ) {					    \
@@ -53,16 +59,16 @@
   }
 
 #define sthread_create( function, arguments ) { \
-    if ( setjmp( main_env ) == 0 ) {		\
+    if ( setjmp( main_env ) == 0 ) {	\
       func = &function;				        \
       args = arguments;				        \
       thread_created = true;			    \
       cur_tcb = new TCB( );			      \
       longjmp( scheduler_env, 1 );		\
-    }						\
+    }						                      \
   }
 
-#define sthread_exit( ) {			\
+#define sthread_exit( ) {			        \
     if ( cur_tcb->stack != NULL ) {		\
       free( cur_tcb->stack );			    \
       cur_tbc->stack = NULL;          \
