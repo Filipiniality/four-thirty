@@ -71,7 +71,7 @@ void Scheduler::run_mfq( ) {
     // finish scheduler.cpp
 
     // check if a process to run is still active.
-    // if so, resumt it, calls schedulerSleep( ) to give a time quantum.
+    // if so, resume it, calls schedulerSleep( ) to give a time quantum.
     // then, suspends it.
 
     // check if this process is still active.
