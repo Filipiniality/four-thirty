@@ -61,36 +61,43 @@ void Scheduler::run_mfq( ) {
   while ( true ) {
     int level = 0;
     for ( ; level < 3; level++ ) {
-      // if you have done 0 time slices at the level you are on
+      // if the current level's slice is 0.
       if (slices[level] == 0) {
-        // and the queue of the level you are on is empty
+        // check the current level queue is empty.
         if (queue[level].size() == 0) {
-          // level++
+          // if so, go to a next lower level queue.
           continue;
         }
-        // if queue is NOT empty
         // pick up the oldest pid from queue of level you are currently on
         current = queue[level].front();
+        break;
       }
-      // if the level's slice is 1, 2, or 3,
-      // that means the previous process was interrupted
-      // and should now be run continuously
-      while (slices[level] >= 1 && slices[level] <= 3) {
-      
+      // if the current level's slice is 1, 2, or 3, the previous process should run continuously.
+      else {
+        current = previous;
+        break;
       }
-      // check if previous process is alive
-        // run for a quantum
-      // check if alive AGAIN
+    }
+    // if we reached level 3, (i.e., the lowest level) and found no processes to schedule
+    if (level == 3 && current == 0) {
+      break;
     }
 
-    // if we reached level 3, (i.e., the lowest level) and found no processes to schedule
-    // finish scheduler.cpp
-
     // check if a process to run is still active.
-    // if so, resumt it, calls schedulerSleep( ) to give a time quantum.
-    // then, suspends it.
+    if (kill(current, 0) == 0) {
+      cerr << "\nscheduler: resumed " << current << endl;
+      kill(current, SIGCONT);
+      schedulerSleep();
+      kill(current, SIGSTOP);
+    }
+    // after running for 1 quantum, check if this process is still active.
+    queue[level].pop();
+    if (kill(current, 0) == 0) {
+      queue[level].push(current);
+    }
 
-    // check if this process is still active.
+    previous = current;
+    
     // if so and if the current level is 1 or 2, shift to a next slice
     // if the next slice was wrapped back to 0. this pid should
       // go to the next level queue or
