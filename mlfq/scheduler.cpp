@@ -61,14 +61,14 @@ void Scheduler::run_mfq( ) {
   while ( true ) {
     int level = 0;
     for ( ; level < 3; level++ ) {
-      // if the current level's slice is 0.
+      // if the level you are on has slice 0.
       if (slices[level] == 0) {
-        // check the current level queue is empty.
+        // check this queue is empty.
         if (queue[level].size() == 0) {
           // if so, go to a next lower level queue.
           continue;
         }
-        // pick up the oldest pid from queue of level you are currently on
+        // otherwise, pick up the oldest pid from queue of level you are currently on
         current = queue[level].front();
         break;
       }
@@ -80,6 +80,7 @@ void Scheduler::run_mfq( ) {
     }
     // if we reached level 3, (i.e., the lowest level) and found no processes to schedule
     if (level == 3 && current == 0) {
+      // end scheduler object
       break;
     }
 
@@ -95,13 +96,15 @@ void Scheduler::run_mfq( ) {
     if (kill(current, 0) == 0) {
       queue[level].push(current);
     }
-
+    // if so and if the current level is 1 or 2, shift to next slice
     previous = current;
     
-    // if so and if the current level is 1 or 2, shift to a next slice
-    // if the next slice was wrapped back to 0. this pid should
-      // go to the next level queue or
-      // go back to the lowest level queue
+    // if the next slice was wrapped back to 0.
+    if (slices[level] == 0) {
+      // process in queue[0] or queue[1] must go to the next level or
+      // reset slices to 0 when threshold is hit
+      // go back to the queue[2]
+    }
     // current process is dead, print out: 
       cerr << "scheduler: confirmed " << current << "'s termination" << endl;
   }
