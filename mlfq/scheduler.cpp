@@ -72,7 +72,7 @@ void Scheduler::run_mfq( ) {
         current = queue[level].front();
         break;
       }
-      // if the current level's slice is 1, 2, or 3, the previous process should run continuously.
+      // if the current level's slice is 1, 2, or 3, previous process was interrupted, and should now be run again
       else {
         current = previous;
         break;
@@ -90,20 +90,22 @@ void Scheduler::run_mfq( ) {
       kill(current, SIGCONT);
       schedulerSleep();
       kill(current, SIGSTOP);
+      // reflect quantum usage by incrementing time slice
+      slices[level]++;
     }
-    // after running for 1 quantum, check if this process is still active.
-    queue[level].pop();
+
+    // check if this process is still active.
     if (kill(current, 0) == 0) {
-      queue[level].push(current);
+      // if so and if the current level is 1 or 2, shift to a next slice
+        // queue[0] has threshold 1
+        // queue[1] has threshold 2
+        // queue[2] has theshold 4
+      // if the next slice was wrapped back to 0. this pid should
+        // go to the next level queue or
+        // go back to the lowest level queue
     }
-    // if so and if the current level is 1 or 2, shift to next slice
-    previous = current;
+    else {
     
-    // if the next slice was wrapped back to 0.
-    if (slices[level] == 0) {
-      // process in queue[0] or queue[1] must go to the next level or
-      // reset slices to 0 when threshold is hit
-      // go back to the queue[2]
     }
     // current process is dead, print out: 
       cerr << "scheduler: confirmed " << current << "'s termination" << endl;
