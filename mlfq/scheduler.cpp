@@ -94,12 +94,18 @@ void Scheduler::run_mfq( ) {
       slices[level]++;
     }
 
+    /* 
+    * Next block contains logic for moving to lower queues
+    * queue[0] has threshold 1 : 2^0 = 1
+    * queue[1] has threshold 2 : 2^1 = 2
+    * queue[2] has threshold 4 : 2^2 = 4
+    * generalized: 2^level = threshold
+    */
+
     // check if this process is still active.
     if (kill(current, 0) == 0) {
-        // queue[0] has threshold 1 // queue[1] has threshold 2 // queue[2] has theshold 4
-        // 2^0 = 1 // 2^1 = 1 // 2^2 = 4 // generalized: 2^level = threshold
       if (slices[level] >= pow(2, level)) {
-        // next slice was wrapped back to 0
+        // next slice wrapped back to 0
         slices[level] = 0;
         // if in queue 0 or 1
         if (level < 2) {
@@ -118,7 +124,6 @@ void Scheduler::run_mfq( ) {
     else {
       slices[level] = 0;
       queue[level].pop();
-
       // current process is dead, print out:
       cerr << "scheduler: confirmed " << current << "'s termination" << endl;
     }

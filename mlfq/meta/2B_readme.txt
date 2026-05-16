@@ -8,6 +8,7 @@ Queue 1=2slice
 Queue 3=4slice
 
 Each slice per second, check if any processes exist in higher-priority queues
+
 If current process used up slices of current queue, it will go to the next lower queue
 or stay in the lowest queue
 
@@ -37,7 +38,7 @@ If sig is 0, then no signal is sent, but error checking is still performed; this
 
 1. It has three queues, numbered from 0 to 2, (i.e., queue[0], queue[1], and queue[2]). Level 0 is the highest
 while level 2 is the lowest. (Already implemented.)
-2. A pid is always enqueued into queue[0] in addProcess( pid ). (Already implemented.)
+2. A PID is always enqueued into queue[0] in addProcess( pid ). (Already implemented.)
 3. Your scheduler first executes all processes in queue 0. The queue 0's time quantum is 1 second. (Already implemented.)
 
 4. If a process in queue[0] does not complete its execution for queue[0]’s time slice, (i.e., 1 sec ), the scheduler moves the corresponding pid to queue[1].

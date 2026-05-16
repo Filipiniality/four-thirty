@@ -1,0 +1,300 @@
+[hreyes@csslab9 MLFQ]$ ./driver taskA 10 taskB 2 taskC 6 taskD 12 taskE 1
+driver: task[taskA] runs for 10seconds.
+driver: task[taskB] runs for 2seconds.
+driver: task[taskC] runs for 6seconds.
+driver: task[taskD] runs for 12seconds.
+driver: task[taskE] runs for 1seconds.
+session 0:round robin scheduler ----------------------------------------------------------
+parent = 1741290
+scheduler (round robin): started
+
+scheduler: resumed 1741291
+driver: child = 1741291
+task[taskA] with pid=1741291 runs for 10 seconds
+taskA
+taskA
+scheduler: completed 1 quantums
+
+scheduler: resumed 1741292
+driver: child = 1741292
+task[taskB] with pid=1741292 runs for 2 seconds
+taskB
+taskB
+scheduler: completed 2 quantums
+
+scheduler: resumed 1741293
+driver: child = 1741293
+task[taskC] with pid=1741293 runs for 6 seconds
+taskC
+taskC
+scheduler: completed 3 quantums
+
+scheduler: resumed 1741294
+driver: child = 1741294
+task[taskD] with pid=1741294 runs for 12 seconds
+taskD
+taskD
+scheduler: completed 4 quantums
+
+scheduler: resumed 1741295
+driver: child = 1741295
+task[taskE] with pid=1741295 runs for 1 seconds
+taskE
+
+Task[taskE]: cpu time used: 1.000051 seconds (answer = 80.871546) count = 14274
+scheduler: completed 5 quantums
+scheduler: confirmed 1741295's termination
+
+scheduler: resumed 1741291
+taskA
+taskA
+scheduler: completed 6 quantums
+
+scheduler: resumed 1741292
+
+Task[taskB]: cpu time used: 2.000170 seconds (answer = 80.871546) count = 28742
+scheduler: completed 7 quantums
+scheduler: confirmed 1741292's termination
+
+scheduler: resumed 1741293
+taskC
+taskC
+scheduler: completed 8 quantums
+
+scheduler: resumed 1741294
+taskD
+taskD
+scheduler: completed 9 quantums
+
+scheduler: resumed 1741291
+taskA
+taskA
+scheduler: completed 10 quantums
+
+scheduler: resumed 1741293
+taskC
+taskC
+scheduler: completed 11 quantums
+
+scheduler: resumed 1741294
+taskD
+taskD
+scheduler: completed 12 quantums
+
+scheduler: resumed 1741291
+taskA
+taskA
+scheduler: completed 13 quantums
+
+scheduler: resumed 1741293
+
+Task[taskC]: cpu time used: 6.000259 seconds (answer = 80.871546) count = 85978
+scheduler: completed 14 quantums
+scheduler: confirmed 1741293's termination
+
+scheduler: resumed 1741294
+taskD
+taskD
+scheduler: completed 15 quantums
+
+scheduler: resumed 1741291
+taskA
+taskA
+scheduler: completed 16 quantums
+
+scheduler: resumed 1741294
+taskD
+taskD
+scheduler: completed 17 quantums
+
+scheduler: resumed 1741291
+
+Task[taskA]: cpu time used: 10.000456 seconds (answer = 80.871546) count = 142985
+scheduler: completed 18 quantums
+scheduler: confirmed 1741291's termination
+
+scheduler: resumed 1741294
+taskD
+taskD
+scheduler: completed 19 quantums
+
+scheduler: resumed 1741294
+
+Task[taskD]: cpu time used: 12.000618 seconds (answer = 80.871546) count = 171687
+driver: All tasks are done
+scheduler: completed 20 quantums
+scheduler: confirmed 1741294's termination
+scheduler: has no more process to run
+driver: confirms the scheduler thread termination
+session 1:multilevel feedback queue scheduler ----------------------------------------------------------
+parent = 1741290
+scheduler (multilevel feedback queue): started
+
+scheduler: resumed 1741327
+driver: child = 1741327
+task[taskA] with pid=1741327 runs for 10 seconds
+taskA
+scheduler: completed 1 quantums
+
+scheduler: resumed 1741328
+driver: child = 1741328
+task[taskB] with pid=1741328 runs for 2 seconds
+taskB
+scheduler: completed 2 quantums
+
+scheduler: resumed 1741329
+driver: child = 1741329
+task[taskC] with pid=1741329 runs for 6 seconds
+taskC
+scheduler: completed 3 quantums
+
+scheduler: resumed 1741330
+driver: child = 1741330
+task[taskD] with pid=1741330 runs for 12 seconds
+taskD
+scheduler: completed 4 quantums
+
+scheduler: resumed 1741331
+driver: child = 1741331
+task[taskE] with pid=1741331 runs for 1 seconds
+taskE
+scheduler: completed 5 quantums
+
+scheduler: resumed 1741327
+taskA
+scheduler: completed 6 quantums
+
+scheduler: resumed 1741328
+taskB
+scheduler: completed 7 quantums
+
+scheduler: resumed 1741329
+taskC
+scheduler: completed 8 quantums
+
+scheduler: resumed 1741330
+taskD
+scheduler: completed 9 quantums
+
+scheduler: resumed 1741331
+
+Task[taskE]: cpu time used: 1.000127 seconds (answer = 80.871546) count = 14026
+scheduler: completed 10 quantums
+scheduler: confirmed 1741331's termination
+
+scheduler: resumed 1741327
+taskA
+scheduler: completed 11 quantums
+
+scheduler: resumed 1741328
+
+Task[taskB]: cpu time used: 2.000169 seconds (answer = 80.871546) count = 28601
+scheduler: completed 12 quantums
+scheduler: confirmed 1741328's termination
+
+scheduler: resumed 1741329
+taskC
+scheduler: completed 13 quantums
+
+scheduler: resumed 1741330
+taskD
+scheduler: completed 14 quantums
+
+scheduler: resumed 1741327
+taskA
+scheduler: completed 15 quantums
+
+scheduler: resumed 1741329
+taskC
+scheduler: completed 16 quantums
+
+scheduler: resumed 1741330
+taskD
+scheduler: completed 17 quantums
+
+scheduler: resumed 1741327
+taskA
+scheduler: completed 18 quantums
+
+scheduler: resumed 1741329
+taskC
+scheduler: completed 19 quantums
+
+scheduler: resumed 1741330
+taskD
+scheduler: completed 20 quantums
+
+scheduler: resumed 1741327
+taskA
+scheduler: completed 21 quantums
+
+scheduler: resumed 1741329
+taskC
+scheduler: completed 22 quantums
+
+scheduler: resumed 1741330
+taskD
+scheduler: completed 23 quantums
+
+scheduler: resumed 1741327
+taskA
+scheduler: completed 24 quantums
+
+scheduler: resumed 1741329
+
+Task[taskC]: cpu time used: 6.000490 seconds (answer = 80.871546) count = 85392
+scheduler: completed 25 quantums
+scheduler: confirmed 1741329's termination
+
+scheduler: resumed 1741330
+taskD
+scheduler: completed 26 quantums
+
+scheduler: resumed 1741327
+taskA
+scheduler: completed 27 quantums
+
+scheduler: resumed 1741330
+taskD
+scheduler: completed 28 quantums
+
+scheduler: resumed 1741327
+taskA
+scheduler: completed 29 quantums
+
+scheduler: resumed 1741330
+taskD
+scheduler: completed 30 quantums
+
+scheduler: resumed 1741327
+taskA
+scheduler: completed 31 quantums
+
+scheduler: resumed 1741330
+taskD
+scheduler: completed 32 quantums
+
+scheduler: resumed 1741327
+
+Task[taskA]: cpu time used: 10.000946 seconds (answer = 80.871546) count = 142316
+scheduler: completed 33 quantums
+scheduler: confirmed 1741327's termination
+
+scheduler: resumed 1741330
+taskD
+scheduler: completed 34 quantums
+
+scheduler: resumed 1741330
+taskD
+scheduler: completed 35 quantums
+
+scheduler: resumed 1741330
+
+Task[taskD]: cpu time used: 12.001041 seconds (answer = 80.871546) count = 170872
+driver: All tasks are done
+scheduler: completed 36 quantums
+scheduler: confirmed 1741330's termination
+scheduler: confirmed 0's termination
+scheduler: has no more process to run
+driver: confirms the scheduler thread termination
+[hreyes@csslab9 MLFQ]$

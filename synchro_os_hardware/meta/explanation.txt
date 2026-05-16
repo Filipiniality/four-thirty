@@ -1,0 +1,25 @@
+The HW implementation takes longer because it uses spinlocks, which require many CPU cycles. A lot of time ends up dedicated to reading/writing to the cache instead of producing/consuming to the buffer.
+Meanwhile, the OS implementation uses 2 CPU cores that run in parallel with their own cache spaces. The cores don't check the state of the caches every cycle. They spend more time producing/consuming than validating the caches.
+
+////////// EC worty //////////
+
+Using the hardware semaphore implementation, the driver program completed the production and consumption of 1000 items in 0.006034 seconds, while using the OS
+implementation the driver program completed the same operation in 0.003799 seconds.
+
+Using the hardware semaphore implementation, the driver program completed the production and consumption of 1000000 items in between 3 and 31 seconds, while the OS implementation always completed the same operation in under 1 second.
+
+In the hardware implementation, the consumer tries continuously to acquire the empty semaphore lock, it sets the lock value to 1 when acquiring the lock and releases the lock by
+setting its value to 0. The producer tries to acquire the same empty semaphore lock when is calling post to notify the available consumers, so it competes for the same lock as the
+consumer to insert a new item, eventually acquiring the lock, setting its value to 1, incrementing the semaphore value, and releasing the lock by setting its value to 0. The
+same process happens when the producer waits for the full semaphore lock, and the consumer acquires the full semaphore lock and then releases the lock. Even when the lock
+value is unchanged by the test_and_set operation, the lock value is written back to the memory. Because of the thread aJinity setup, the consumer and producer threads run on
+their own CPU, each with their own cache.
+
+The lock value is readable and writable by both threads, and the value update performed by the consumer invalidates the cache on the
+producer CPU, and the value update performed by the producer invalidates the cache on the consumer CPU, causing the value to be read from memory again. Because cache
+invalidation happens so frequently, the result is cache trashing, which severely degrades the performance. If the synchronization is infrequent, the hardware implementation should
+be faster.
+
+The OS implementation of the semaphore sleeps the thread and it adds it to a waiting list when the consumer thread cannot acquire the lock, performing a context switch, so
+without keeping the CPU busy and continuously updating the cache. The producer can acquire the post lock without the consumer competition, and the post will wake up the
+sleeping consumer. The producer have the chance to call insert multiple times before the consumer is scheduled for execution.
