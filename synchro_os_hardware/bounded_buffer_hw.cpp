@@ -21,7 +21,12 @@ BoundedBufferHW::~BoundedBufferHW( ) {
 /* Insert item onto the rear of shared buffer sp */
 void BoundedBufferHW::insert( int item ) {
     // check if there's no space
-    sem_f.wait(&full);
+    if (full == 0)
+    {
+        // decrement counter of full
+        full--;
+	      sem_f.wait(&full);
+    }
     // critical section
     sem_m.wait(&mutex);
     // add next produced to buffer and grow buffer size by 1
@@ -36,7 +41,12 @@ int BoundedBufferHW::remove( ) {
     int item;
 
     // check if there is no data
-    sem_e.wait(&empty);
+    if (empty == 0) {
+        // decrement counter of empty
+        empty--;
+	      sem_e.wait(&empty);
+    }
+
     sem_m.wait(&mutex);
     // pop first item from buffer and shrink buffer size by 1
     item = buf[++front % n];
@@ -45,3 +55,4 @@ int BoundedBufferHW::remove( ) {
 
     return item;
  }
+

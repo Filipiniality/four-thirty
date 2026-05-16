@@ -1,8 +1,4 @@
 #include "semaphore.h"
-/*
-* Hardware-supported implementation of semaphores
-* Implemented with busy-wait states
-*/
 
 // initializes sem to a given value. The var named 'pshared' was chosen to mimic Linux
 int Semaphore::init( int *sem, int pshared, int value ) {
