@@ -17,7 +17,7 @@ void free_( void *dealloc_space ) {
   MCB *mcb;
 
   // locate this partition's mcb address from dealloc_space
-  // Task 4: implement by yourself (just in one line).
+  mcb = (MCB*)((unsigned long long int)dealloc_space - sizeof(MCB));
   mcb->available = true;
   return;
 }
