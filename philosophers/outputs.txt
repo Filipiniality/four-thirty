@@ -1,0 +1,99 @@
+./a.out 0
+philosopher[philosopher[2] picked up chopsticks0] picked up chopsticks
+philosopher[3] picked up chopsticks
+philosopher[4] picked up chopsticks
+
+philosopher[1] picked up chopsticks
+philosopher[2] put down chopsticks
+philosopher[2] picked up chopsticks
+philosopher[3] put down chopsticks
+philosopher[3] picked up chopsticks
+philosopher[0] put down chopsticks
+philosopher[0] picked up chopsticks
+philosopher[4] put down chopsticks
+philosopher[4] picked up chopsticks
+philosopher[1] put down chopsticks
+philosopher[1] picked up chopsticks
+philosopher[2] put down chopsticks
+philosopher[2] picked up chopsticks
+philosopher[3] put down chopsticks
+philosopher[3] picked up chopsticks
+philosopher[0] put down chopsticks
+philosopher[0] picked up chopsticks
+philosopher[4] put down chopsticks
+philosopher[4] picked up chopsticks
+philosopher[1] put down chopsticks
+philosopher[1] picked up chopsticks
+philosopher[2] put down chopsticks
+philosopher[3] put down chopsticks
+philosopher[0] put down chopsticks
+philosopher[4] put down chopsticks
+philosopher[1] put down chopsticks
+time = 3002634
+
+./a.out 1
+philosopher[0] picked up chopsticks
+philosopher[0] put down chopsticks
+philosopher[0] picked up chopsticks
+philosopher[0] put down chopsticks
+philosopher[0] picked up chopsticks
+philosopher[0] put down chopsticks
+philosopher[3] picked up chopsticks
+philosopher[3] put down chopsticks
+philosopher[3] picked up chopsticks
+philosopher[3] put down chopsticks
+philosopher[3] picked up chopsticks
+philosopher[3] put down chopsticks
+philosopher[2] picked up chopsticks
+philosopher[2] put down chopsticks
+philosopher[2] picked up chopsticks
+philosopher[2] put down chopsticks
+philosopher[2] picked up chopsticks
+philosopher[2] put down chopsticks
+philosopher[4] picked up chopsticks
+philosopher[4] put down chopsticks
+philosopher[4] picked up chopsticks
+philosopher[4] put down chopsticks
+philosopher[4] picked up chopsticks
+philosopher[4] put down chopsticks
+philosopher[1] picked up chopsticks
+philosopher[1] put down chopsticks
+philosopher[1] picked up chopsticks
+philosopher[1] put down chopsticks
+philosopher[1] picked up chopsticks
+philosopher[1] put down chopsticks
+time = 15005830
+
+
+./a.out 2
+philosopher[0] picked up chopsticks
+philosopher[2] picked up chopsticks
+philosopher[0] put down chopsticks
+philosopher[2] put down chopsticks
+philosopher[1] picked up chopsticks
+philosopher[4] picked up chopsticks
+philosopher[1] put down chopsticks
+philosopher[2] picked up chopsticks
+philosopher[4] put down chopsticks
+philosopher[0] picked up chopsticks
+philosopher[2] put down chopsticks
+philosopher[3] picked up chopsticks
+philosopher[0] put down chopsticks
+philosopher[1] picked up chopsticks
+philosopher[3] put down chopsticks
+philosopher[1] put down chopsticks
+philosopher[2] picked up chopsticks
+philosopher[4] picked up chopsticks
+philosopher[2] put down chopsticks
+philosopher[4] put down chopsticks
+philosopher[1] picked up chopsticks
+philosopher[3] picked up chopsticks
+philosopher[1] put down chopsticks
+philosopher[0] picked up chopsticks
+philosopher[3] put down chopsticks
+philosopher[3] picked up chopsticks
+philosopher[0] put down chopsticks
+philosopher[3] put down chopsticks
+philosopher[4] picked up chopsticks
+philosopher[4] put down chopsticks
+time = 8004479

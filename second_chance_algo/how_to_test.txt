@@ -1,0 +1,52 @@
+./compile.sh
+./driver test.txt e 10 4
+./driver test.txt d 10 4
+./driver test.txt e 200 4
+./driver test.txt d 200 4
+./driver test.txt e 400 4
+./driver test.txt d 400 4
+./driver test.txt e 800 4
+./driver test.txt d 800 4
+
+Task 3: Compare your implementation vs bare file access
+
+//
+
+class Entry {
+ public:
+  bool reference = false; // true whenever this block as accessed. false by 2nd chance alg.
+  bool dirty = false; // true whenever this block is written. false upon a writeback.
+  int pNumber = -1; // contains the disk block number. -1 if this entry has no block.
+};
+
+Block-read algo:
+- Sequentially search all cache slots
+- If the corresponding entry has been found in the cache, read the contents from the cache (cache hit)
+- If not found (not cached), find a free block entry in the cache and load the data from the disk to this cache block
+- Do 2nd chance algo
+- If this victim is dirty, you must first write back its contents to the disk first, and thereafter load the new page from the disk into this cache block.
+- Do not forget to set the reference bit.
+
+Block-write algo:
+- Sequentially search all cache slots
+- If the corresponding entry has been found in the cache, overwrite new data to this cache block. (is now dirty)
+- Otherwise, find an empty block entry in the cache and write the data to this cache block. (is now dirty)
+- 2nd chance algo
+- If this victim is dirty, you must first write back its contents to the disk and thereafter write new data into this cache block. Do not forget to set the reference bit.
+
+// read a requested page from disk
+lines[i] = (char*)mmap( lines[i], page_len, PROT_READ | PROT_WRITE, MAP_SHARED,
+fd, pNumber * page_len );
+// page_len: the page size which is 4096 bytes
+// fd: a file descriptor to access this file
+// pNumber: a 0-index page number in this file to access
+// pNumber * page_len: the actual byte position in this file to access
+
+// write data back to disk
+msync( lines[i], page_len, MS_SYNC );
+
+// Note that msync( ) only writes data back to disk but still maintains old data in line[i]. Therefore, whenever we reuse a cache line, say line[i], we have to call munmap( ) as follows:
+munmap( lines[i], page_len );
+
+Should see that tiny cache size will have worse RNG performance, because cache warming doesn't happen
+Should mention working set
