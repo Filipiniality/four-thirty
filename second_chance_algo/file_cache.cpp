@@ -82,12 +82,12 @@ void FileCache::writeBack( int victimEntry ) {
     if (entries[victimEntry].dirty == true) {
       // use msync() to skip kernel's cache
       if ( msync( lines[victimEntry], page_len, MS_SYNC ) == -1 )
-	cerr << "msync failed" << endl;
+	      cerr << "msync failed" << endl;
       entries[victimEntry].dirty = false;
     }
     // regardless of cleanness, to reuse the same address, release this page
     if ( munmap( lines[victimEntry], page_len ) == -1 )
-	cerr << "munmap failed" << endl;
+	    cerr << "munmap failed" << endl;
   }
 }
 
@@ -105,7 +105,7 @@ void FileCache::flush( ) {
 
     if ( lines[i] != NULL ) {
       if ( munmap( lines[i], page_len ) == -1 )
-	fprintf( stderr, "%x: munmap failed\n", lines[i] );
+	      fprintf( stderr, "%x: munmap failed\n", lines[i] );
     }
   }    
 }
@@ -172,7 +172,7 @@ bool FileCache::writePage( int pNumber, char contents[] ) {
   }
 
   // if page miss happens
-  int victimEntry
+  int victimEntry;
 
   // find an invalid page
   // if all lines are full.
