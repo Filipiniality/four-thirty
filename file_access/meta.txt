@@ -1,0 +1,62 @@
+Task 3
+Q1. Did the elapsed time per block writing increase as the number of blocks grew?
+Q2. Did the elapsed time per block reading increase as the number of blocks grew?
+Q3. Did you see any distinct performance increase or decrease across the direct to the single indirect blocks, the
+single to double indirect blocks, and/or the double to triple indirect blocks?
+Q4. Based on Q1-Q3, do you think that Linux randomly allocates free blocks to a file?
+Q5. Based on Q1-Q3, besides the factor in Q4, what else do you think affected Linux file accesses?
+
+g++ faccesses.cpp -o faccesses
+./faccesses
+
+[hreyes@csslab11 5]$ ./faccesses
+writing to direct blocks ********************************************
+nblocks = 1, total time = 18412, time / block = 18412
+nblocks = 12, total time = 9633, time / block = 802
+writing to 1st indirect blocks **************************************
+nblocks = 13, total time = 32904, time / block = 2531
+nblocks = 1036, total time = 50702, time / block = 48
+writing to the 2ndary indirect blocks *******************************
+nblocks = 1037, total time = 36454, time / block = 35
+nblocks = 1048588, total time = 29749663, time / block = 28
+writing to the 3tiary indirect blocks *******************************
+nblocks = 1048589, total time = 20074832, time / block = 19
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+reading to direct blocks ********************************************
+nblocks = 1, total time = 545218, time / block = 545218
+nblocks = 12, total time = 13537, time / block = 1128
+reading to 1st indirect blocks **************************************
+nblocks = 13, total time = 499286, time / block = 38406
+nblocks = 1036, total time = 150913, time / block = 145
+reading to the 2ndary indirect blocks *******************************
+nblocks = 1037, total time = 140250, time / block = 135
+nblocks = 1048588, total time = 25788823, time / block = 24
+reading to the 3tiary indirect blocks *******************************
+nblocks = 1048589, total time = 22976237, time / block = 21
+
+//////////////////////
+
+[hreyes@csslab11 5]$ ./faccesses
+writing to direct blocks ********************************************
+nblocks = 1, total time = 20985, time / block = 20985
+nblocks = 12, total time = 18548, time / block = 1545
+writing to 1st indirect blocks **************************************
+nblocks = 13, total time = 15099, time / block = 1161
+nblocks = 1036, total time = 58660, time / block = 56
+writing to the 2ndary indirect blocks *******************************
+nblocks = 1037, total time = 37712, time / block = 36
+nblocks = 1048588, total time = 27943629, time / block = 26
+writing to the 3tiary indirect blocks *******************************
+nblocks = 1048589, total time = 16203991, time / block = 15
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+reading to direct blocks ********************************************
+nblocks = 1, total time = 1892, time / block = 1892
+nblocks = 12, total time = 26770, time / block = 2230
+reading to 1st indirect blocks **************************************
+nblocks = 13, total time = 17757, time / block = 1365
+nblocks = 1036, total time = 171961, time / block = 165
+reading to the 2ndary indirect blocks *******************************
+nblocks = 1037, total time = 139459, time / block = 134
+nblocks = 1048588, total time = 23856560, time / block = 22
+reading to the 3tiary indirect blocks *******************************
+nblocks = 1048589, total time = 22247743, time / block = 21

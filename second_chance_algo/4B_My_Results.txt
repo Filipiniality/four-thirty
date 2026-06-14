@@ -1,0 +1,57 @@
+[hreyes@csslab9 second_chance_algo]$ ./compile.sh
+
+[hreyes@csslab9 second_chance_algo]$ ./driver test.txt e 10 4
+page length: 4096
+file length: 2167737
+Test random access(cache enabled): 0.045939 sec
+Test localized access(cache enabled): 0.006539 sec
+Test mixed access(cache enabled): 0.030744 sec
+
+[hreyes@csslab9 second_chance_algo]$ ./driver test.txt d 10 4
+page length: 4096
+file length: 2167737
+Test random access(cache disabled): 0.011196 sec
+Test localized access(cache disabled): 0.005308 sec
+Test mixed access(cache disabled): 0.004604 sec
+
+[hreyes@csslab9 second_chance_algo]$ ./driver test.txt e 200 4
+page length: 4096
+file length: 2167737
+Test random access(cache enabled): 0.010838 sec
+Test localized access(cache enabled): 0.037461 sec
+Test mixed access(cache enabled): 0.019414 sec
+
+[hreyes@csslab9 second_chance_algo]$ ./driver test.txt d 200 4
+page length: 4096
+file length: 2167737
+Test random access(cache disabled): 0.008844 sec
+Test localized access(cache disabled): 0.005721 sec
+Test mixed access(cache disabled): 0.005109 sec
+
+[hreyes@csslab9 second_chance_algo]$ ./driver test.txt e 400 4
+page length: 4096
+file length: 2167737
+Test random access(cache enabled): 0.013005 sec
+Test localized access(cache enabled): 0.005821 sec
+Test mixed access(cache enabled): 0.004517 sec
+
+[hreyes@csslab9 second_chance_algo]$ ./driver test.txt d 400 4
+page length: 4096
+file length: 2167737
+Test random access(cache disabled): 0.011886 sec
+Test localized access(cache disabled): 0.007016 sec
+Test mixed access(cache disabled): 0.004709 sec
+
+[hreyes@csslab9 second_chance_algo]$ ./driver test.txt e 800 4
+page length: 4096
+file length: 2167737
+Test random access(cache enabled): 0.009656 sec
+Test localized access(cache enabled): 0.005308 sec
+Test mixed access(cache enabled): 0.004401 sec
+
+[hreyes@csslab9 second_chance_algo]$ ./driver test.txt d 800 4
+page length: 4096
+file length: 2167737
+Test random access(cache disabled): 0.010490 sec
+Test localized access(cache disabled): 0.004805 sec
+Test mixed access(cache disabled): 0.004639 sec
